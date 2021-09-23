@@ -23,12 +23,12 @@ class API:
 
     def handle_request(self, request):
         """explaine here..."""
-        user_agent = request.environ.get('HTTP_USER_AGENT', 'No User Agent Found')
-
         response = Response()
-        response.text = f'<h1>Hello, my friend with this user agent: {user_agent}<\h1>.'
 
-        return response
+        for path, handler in self.routes.items():
+            if path == request.path:
+                handler(request, response)
+                return response
 
     def route(self, path):
         """explaine here..."""
