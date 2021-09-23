@@ -25,5 +25,5 @@ def about(request, response):
     response.text = '<h2>Hello from the ABOUT page.<\h2>'
 
 
-
-print(app.routes)
+for key in app.routes:
+    print(key + ': ' + str(app.routes[key]))

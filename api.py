@@ -11,6 +11,8 @@ class API:
 
     def __call__(self, environ, start_response):
         """explaine here..."""
+        client_address = environ.get('REMOTE_ADDR')
+        print(f'\nNew Call from { client_address }\n')
         request = Request(environ)
 
         response = self.handle_request(request)
