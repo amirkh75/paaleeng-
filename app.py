@@ -15,22 +15,22 @@ from api import API
 app = API()
 
 
-@app.route('/')
+
 def home(request, response):
     """ function based and class based views (our handlers) """
     response.text = '<h1>Hello from the HOME page.</h1>'
 
-@app.route('/about')
+
 def about(request, response):
     """ explains the current..."""
     response.text = '<h1>Hello from the ABOUT page.</h1>'
 
-@app.route('/hello/{name}')
+
 def greeting(request, response, name):
     """explains here."""
     response.text = f'<h1> Hello, {name} </h1>'
 
-@app.route('/book')
+
 class BookHandler:
     def get(self, request, response):
         response.text = f'<h1> Books Page</h1>'
