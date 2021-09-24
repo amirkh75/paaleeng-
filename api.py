@@ -29,6 +29,9 @@ class API:
             if path == request.path:
                 handler(request, response)
                 return response
+            
+            self.default_response(response)
+            return response
 
     def route(self, path):
         """explaine here..."""
@@ -38,3 +41,8 @@ class API:
             return handler
         
         return wrapper
+
+    def default_response(self, response):
+        """explaine here..."""
+        response.status = 404
+        response.text = '<h1>you lost here? you can got <a href="/"> here </a></h1>'
