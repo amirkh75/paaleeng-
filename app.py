@@ -29,3 +29,12 @@ def about(request, response):
 def greeting(request, response, name):
     """explains here."""
     response.text = f'<h1> Hello, {name} </h1>'
+
+@app.route('/book')
+class BookHandler:
+    def get(self, request, response):
+        response.text = f'<h1> Books Page</h1>'
+    
+    def post(self, request, response):
+        response.text = f'<h1>Endpoint to create a new book</h1>'
+
