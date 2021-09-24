@@ -21,17 +21,25 @@ class API:
 
         return response(environ, start_response)
 
+    def find_handler(self, request_path):
+        """explaine here..."""
+        for path, handler in self.routes.items():
+            if path == request_path:
+                return handler
+
+
     def handle_request(self, request):
         """explaine here..."""
         response = Response()
 
-        for path, handler in self.routes.items():
-            if path == request.path:
-                handler(request, response)
-                return response
-            
+        handler = self.find_handler(request_path=request.path)
+
+        if handler is not None:
+            handler(request, response)
+        else:
             self.default_response(response)
-            return response
+        
+        return response
 
     def route(self, path):
         """explaine here..."""
