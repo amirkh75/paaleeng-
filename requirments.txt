@@ -1,22 +1,10 @@
-<<<<<<< HEAD
-gunicorn=20.1.0
-webob=1.8.7
-pares=1.19.0
-pytest=6.2.5
-requests=2.26.0
-requests-wsgi-adapter=0.4.1
-=======
->>>>>>> d2209d6b05787e565e26990bd8a7cf6fe1ba260b
 gunicorn==20.1.0
 webob==1.8.7
 parse==1.19.0
 pytest==6.2.5
-<<<<<<< HEAD
-=======
 requests==2.26.0
 requests-wsgi-adapter==0.4.1
 gunicorn==20.1.0
 webob==1.8.7
 parse==1.19.0
 pytest==6.2.5
->>>>>>> d2209d6b05787e565e26990bd8a7cf6fe1ba260b
