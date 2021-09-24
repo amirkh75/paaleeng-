@@ -17,7 +17,7 @@ app = API()
 
 @app.route('/')
 def home(request, response):
-    """ explains the current..."""
+    """ function based and class based views (our handlers) """
     response.text = '<h1>Hello from the HOME page.</h1>'
 
 @app.route('/about')

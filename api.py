@@ -48,7 +48,10 @@ class API:
 
     def route(self, path):
         """explaine here..."""
-        print('\nin route.\n')
+
+        if path in self.routes:
+            raise AssertionError(f"\n\nSuch route already exists.({path})\n\n")
+        # or -> asset path ot in self.routes, "Such route already exists."
         def wrapper(handler):
             self.routes[path] = handler
             return handler
