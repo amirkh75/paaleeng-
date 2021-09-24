@@ -1,4 +1,5 @@
 import pytest
+from webob import response
 
 
 # use 'pytest paaleeng#.py' for test.
@@ -54,3 +55,14 @@ def test_default_404_response(client):
     test that class based handlers are returning Method Not Allowed. response if an invalid request method is used
     test that status code is being returned properly
 """
+
+def test_alternative_route(api, client):
+    """explaine here..."""
+    response_text = 'Alternative way to add a route'
+
+    def home(request, response):
+        response.text = response_text
+
+    api.add_route('/alternative', home)
+
+    assert client.get('http://testserver/alternative').text == response_text

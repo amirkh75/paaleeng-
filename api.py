@@ -53,14 +53,16 @@ class API:
         
         return response
 
+    def add_route(self, path, handler):
+        """explaine here..."""
+        assert path not in self.routes, f"\n\nSuch route already exists.({path})\n\n"
+        self.routes[path] = handler
+
     def route(self, path):
         """explaine here..."""
 
-        if path in self.routes:
-            raise AssertionError(f"\n\nSuch route already exists.({path})\n\n")
-        # or -> asset path ot in self.routes, "Such route already exists."
         def wrapper(handler):
-            self.routes[path] = handler
+            self.add_route(path, handler)
             return handler
         
         return wrapper
