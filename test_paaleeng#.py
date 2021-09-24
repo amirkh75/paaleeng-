@@ -1,8 +1,6 @@
 import pytest
 
 
-from api import API
-
 # use 'pytest paaleeng#.py' for test.
 
 def test_basic_route(api):
