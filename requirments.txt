@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 gunicorn=20.1.0
 webob=1.8.7
 pares=1.19.0
 pytest=6.2.5
 requests=2.26.0
 requests-wsgi-adapter=0.4.1
+=======
+gunicorn==20.1.0
+webob==1.8.7
+parse==1.19.0
+pytest==6.2.5
+>>>>>>> 3d5ce197a09c146e5012e6ec52892d60e97a9e92
