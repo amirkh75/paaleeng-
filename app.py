@@ -24,3 +24,8 @@ def home(request, response):
 def about(request, response):
     """ explains the current..."""
     response.text = '<h1>Hello from the ABOUT page.</h1>'
+
+@app.route('/hello/{name}')
+def greeting(request, response, name):
+    """explains here."""
+    response.text = f'<h1> Hello, {name} </h1>'
