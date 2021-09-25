@@ -1,5 +1,9 @@
 # api.py
 
+
+import os
+import weakref
+from jinja2 import Environment, FileSystemLoader
 from webob import Request, Response
 from parse import parse
 import inspect
@@ -10,9 +14,10 @@ from wsgiadapter import WSGIAdapter as RequestsWSGIAdapter
 class API:
     """explaine here..."""
 
-    def __init__(self):
+    def __init__(self, templates_dir='templates'):
         """explaine here..."""
         self.routes = {}
+        self.templates_env = Environment(loader=FileSystemLoader(os.path.abspath(templates_dir)))
 
     def __call__(self, environ, start_response):
         """explaine here..."""
@@ -32,14 +37,13 @@ class API:
             parse_result = parse(path, request_path)
             if parse_result is not None:
                 return handler, parse_result.named
-        
+
         return None, None
 
 
     def handle_request(self, request):
         """explaine here..."""
         response = Response()
-
         handler, kwargs = self.find_handler(request_path=request.path)
         if handler is not None:
             if inspect.isclass(handler):
@@ -47,7 +51,8 @@ class API:
                 if handler is None:
                     raise AttributeError('Method not allowed', request.method)
 
-            handler(request, response, **kwargs)
+
+            handler(request, response, app = self, **kwargs)
         else:
             self.default_response(response)
         
@@ -76,3 +81,10 @@ class API:
         session = RequestsSession()
         session.mount(prefix=base_url, adapter=RequestsWSGIAdapter(self))
         return session
+
+    def template(self, template_name, context=None):
+        """explaine here..."""
+        if context is None:
+            context = {}
+
+        return self.templates_env.get_template(template_name).render(**context)

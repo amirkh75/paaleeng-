@@ -6,5 +6,5 @@ from urls import urlpatterns
 
 
 app = API()
-
 urlpatterns(app)
+

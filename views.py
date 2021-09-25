@@ -1,5 +1,6 @@
 # views.py
 
+
 def home(request, response):
     """ function based and class based views (our handlers) """
     response.text = '<h1>Hello from the HOME page.</h1>'
@@ -21,3 +22,9 @@ class BookHandler:
     
     def post(self, request, response):
         response.text = f'<h1>Endpoint to create a new book</h1>'
+
+def template_handler(request, response, app):
+    """explaine here..."""
+    print(str(type(app)))
+    print('\n\n\n')
+    response.body = app.template(template_name="index.html", context={"name": "paaleeng#", "title": "best framework ever"}).encode()
