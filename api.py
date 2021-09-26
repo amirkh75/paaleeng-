@@ -18,6 +18,7 @@ class API:
         """explaine here..."""
         self.routes = {}
         self.templates_env = Environment(loader=FileSystemLoader(os.path.abspath(templates_dir)))
+        self.exception_handler = None
 
     def __call__(self, environ, start_response):
         """explaine here..."""
@@ -30,6 +31,10 @@ class API:
         response = self.handle_request(request)
 
         return response(environ, start_response)
+
+    def add_exception_handler(self, exception_handler):
+        """explaine here..."""
+        self.exception_handler = exception_handler
 
     def find_handler(self, request_path):
         """explaine here..."""
@@ -44,17 +49,24 @@ class API:
     def handle_request(self, request):
         """explaine here..."""
         response = Response()
-        handler, kwargs = self.find_handler(request_path=request.path)
-        if handler is not None:
-            if inspect.isclass(handler):
-                handler = getattr(handler(), request.method.lower(), None)
-                if handler is None:
-                    raise AttributeError('Method not allowed', request.method)
+        try:
+            handler, kwargs = self.find_handler(request_path=request.path)
+            if handler is not None:
+                if inspect.isclass(handler):
+                    handler = getattr(handler(), request.method.lower(), None)
+                    if handler is None:
+                        raise AttributeError('Method not allowed', request.method)
 
+                handler(request, response, app=self, **kwargs)
+            else:
+                self.default_response(response)
+            
+        except Exception as e:
+            if self.exception_handler is None:
+                raise e
+            else:
+                self.exception_handler(request, response, e)
 
-            handler(request, response, app = self, **kwargs)
-        else:
-            self.default_response(response)
         
         return response
 
