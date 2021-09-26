@@ -9,28 +9,30 @@ from parse import parse
 import inspect
 from requests import Session as RequestsSession
 from wsgiadapter import WSGIAdapter as RequestsWSGIAdapter
-
+from whitenoise import WhiteNoise
 
 class API:
     """explaine here..."""
 
-    def __init__(self, templates_dir='templates'):
+    def __init__(self, templates_dir='templates', static_dir='static'):
         """explaine here..."""
         self.routes = {}
         self.templates_env = Environment(loader=FileSystemLoader(os.path.abspath(templates_dir)))
         self.exception_handler = None
+        self.whitenoise = WhiteNoise(self.wsgi_app, root=static_dir)
 
-    def __call__(self, environ, start_response):
+    def wsgi_app(self, environ, start_response):
         """explaine here..."""
-
         client_address = environ.get('REMOTE_ADDR')
         print(f'\nNew Call from { client_address }\n')
 
         request = Request(environ)
-
         response = self.handle_request(request)
-
         return response(environ, start_response)
+
+    def __call__(self, environ, start_response):
+        """explaine here..."""
+        return self.whitenoise(environ, start_response)
 
     def add_exception_handler(self, exception_handler):
         """explaine here..."""

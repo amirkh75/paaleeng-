@@ -1,0 +1,10 @@
+body {
+    background-color: #b76e79;
+}
+
+h1 {
+    color: gold;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgb(110, 90, 2);
+    margin: 250px 50px 75px 100px;
+}
